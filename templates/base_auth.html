@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Rutino{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: #202a20;
+            background: #f3f6f0;
+        }
+
+        .auth-wrapper {
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .admin-auth-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+
+        /* SOL TARAF */
+
+        .auth-intro {
+            background: #f3f6f0;
+            padding: 50px 13%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            font-size: 29px;
+            font-weight: 800;
+            color: #202a20;
+            text-decoration: none;
+            letter-spacing: -1.5px;
+        }
+
+        .brand-mark {
+            width: 49px;
+            height: 49px;
+            background: #243e2b;
+            border-radius: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+
+        .brand-dot {
+            color: #80a477;
+        }
+
+        .intro-copy {
+            max-width: 650px;
+            margin: 60px 0;
+        }
+
+        .eyebrow {
+            color: #588052;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .eyebrow-dot {
+            width: 9px;
+            height: 9px;
+            background: #83a97a;
+            border-radius: 50%;
+            box-shadow: 0 0 0 6px #e5eee1;
+        }
+
+        .intro-copy h1 {
+            font-size: clamp(42px, 5vw, 76px);
+            line-height: 1.08;
+            letter-spacing: -4px;
+            font-weight: 800;
+            margin: 0 0 28px;
+        }
+
+        .intro-copy h1 span {
+            color: #598252;
+        }
+
+        .intro-copy p {
+            font-size: 17px;
+            line-height: 1.9;
+            color: #818d7c;
+            max-width: 600px;
+        }
+
+        .quote-card {
+            background: rgba(255,255,255,.7);
+            border: 1px solid #dfe8da;
+            border-radius: 19px;
+            padding: 30px;
+            margin-top: 65px;
+            max-width: 530px;
+        }
+
+        .quote-mark {
+            font-size: 48px;
+            color: #85a77c;
+            line-height: 1;
+        }
+
+        .quote-card strong {
+            display: block;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .quote-caption {
+            color: #929d8c;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .intro-footer {
+            color: #929d8c;
+            font-size: 12px;
+        }
+
+        /* SAĞ TARAF */
+
+        .auth-side {
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 55px;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .auth-card-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 55px;
+        }
+
+        .card-kicker {
+            color: #899585;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: #eef4e9;
+            color: #72966b;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+
+        .auth-card h2 {
+            font-size: 39px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin: 0 0 15px;
+        }
+
+        .auth-subtitle {
+            color: #899384;
+            font-size: 15px;
+            margin-bottom: 45px;
+        }
+
+        .field {
+            display: block;
+            margin-bottom: 25px;
+        }
+
+        .field span {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #485546;
+            margin-bottom: 12px;
+        }
+
+        .field input {
+            width: 100%;
+            height: 60px;
+            border: 1px solid #dce5d8;
+            border-radius: 12px;
+            padding: 0 19px;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            background: #fbfcfa;
+            transition: .2s;
+        }
+
+        .field input:focus {
+            border-color: #71956a;
+            box-shadow: 0 0 0 3px #eaf1e6;
+        }
+
+        .field input::placeholder {
+            color: #a4ada0;
+        }
+
+        .submit-button {
+            width: 100%;
+            height: 62px;
+            border: none;
+            border-radius: 12px;
+            background: #243e2b;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s;
+            margin-top: 5px;
+        }
+
+        .submit-button:hover {
+            background: #35563b;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 35px;
+            color: #66885f;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .back-link:hover {
+            color: #243e2b;
+        }
+
+        .form-alert {
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            font-size: 13px;
+        }
+
+        .form-alert.success {
+            color: #315d36;
+            background: #edf5e9;
+        }
+
+        .form-alert.error,
+        .form-alert.danger {
+            color: #a33b35;
+            background: #fff0ed;
+        }
+
+        .form-alert.warning {
+            color: #806329;
+            background: #fff7e6;
+        }
+
+        @media (max-width: 900px) {
+            .admin-auth-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-intro {
+                padding: 35px 8%;
+            }
+
+            .intro-copy {
+                margin: 65px 0 35px;
+            }
+
+            .intro-copy h1 {
+                font-size: 48px;
+                letter-spacing: -2px;
+            }
+
+            .quote-card {
+                margin-top: 30px;
+            }
+
+            .auth-side {
+                padding: 60px 8%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-side {
+                padding: 40px 22px;
+            }
+
+            .auth-card h2 {
+                font-size: 32px;
+            }
+
+            .intro-copy h1 {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="auth-wrapper">
+    {% block content %}{% endblock %}
+</div>
+
+<script>
+    setTimeout(() => {
+        document.querySelectorAll('.auto-dismiss').forEach(alert => {
+            alert.style.transition = 'opacity .5s';
+            alert.style.opacity = '0';
+
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 5000);
+</script>
+
+</body>
+</html>

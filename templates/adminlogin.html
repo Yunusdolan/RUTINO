@@ -1,0 +1,156 @@
+
+{% extends "base_auth.html" %}
+{% block title %}Rutino | Yönetici Girişi{% endblock %}
+
+{% block content %}
+
+<main class="admin-auth-layout">
+
+    <!-- SOL TANITIM ALANI -->
+
+    <section class="auth-intro">
+
+        <a href="http://localhost:5173/" class="brand">
+            <span class="brand-mark">R</span>
+            <span>rutino<span class="brand-dot">.</span></span>
+        </a>
+
+        <div class="intro-copy">
+
+            <span class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                RUTINO YÖNETİM MERKEZİ
+            </span>
+
+            <h1>
+                Kontrol sende,<br>
+                <span>Rutino seninle.</span>
+            </h1>
+
+            <p>
+                Platformunu yönet, kullanıcılarını takip et
+                ve Rutino'nun gelişimini tek bir yerden kontrol et.
+            </p>
+
+            <div class="quote-card">
+
+                <span class="quote-mark">“</span>
+
+                <strong>
+                    İyi yönetilen bir sistem, daha iyi
+                    alışkanlıklar ve daha güçlü bir topluluk oluşturur.
+                </strong>
+
+                <span class="quote-caption">
+                    RUTINO • YÖNETİM PANELİ
+                </span>
+
+            </div>
+
+        </div>
+
+        <span class="intro-footer">
+            RUTINO · Alışkanlık Takip Sistemi
+        </span>
+
+    </section>
+
+
+    <!-- SAĞ GİRİŞ ALANI -->
+
+    <section class="auth-side">
+
+        <div class="auth-card">
+
+            <div class="auth-card-heading">
+
+                <span class="card-kicker">
+                    YÖNETİCİ GİRİŞİ
+                </span>
+
+                <span class="card-icon">✳</span>
+
+            </div>
+
+            <h2>Hoş geldin.</h2>
+
+            <p class="auth-subtitle">
+                Yönetim hesabınla devam et.
+            </p>
+
+
+            <!-- FLASK MESAJLARI -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div class="form-alert {{ category }} auto-dismiss"
+                             role="alert">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- ADMIN GİRİŞ FORMU -->
+
+            <form method="POST"
+                  action="{{ url_for('routes.admin_login') }}">
+
+                <label class="field">
+
+                    <span>E-posta</span>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="admin@rutino.com"
+                        autocomplete="username"
+                        required
+                    >
+
+                </label>
+
+
+                <label class="field">
+
+                    <span>Şifre</span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Şifren"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </label>
+
+
+                <button type="submit" class="submit-button">
+                    Yönetici Girişi Yap ↗
+                </button>
+
+            </form>
+
+
+            <a href="http://localhost:5173/" class="back-link">
+                Normal kullanıcı girişine dön
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}
