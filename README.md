@@ -2,7 +2,6 @@
 
 RUTINO, kullanıcıların günlük alışkanlıklarını planlamasına, tamamladıkları alışkanlıkları takip etmesine ve kişisel gelişimlerini puan ve rozetlerle görmesine yardımcı olan web tabanlı bir alışkanlık takip uygulamasıdır.
 
-
 ## Özellikler
 
 - Kullanıcı hesabı oluşturma ve giriş yapma
@@ -14,7 +13,7 @@ RUTINO, kullanıcıların günlük alışkanlıklarını planlamasına, tamamlad
 - Hedeflere göre rozet kazanma ve rozetleri görüntüleme
 - Profil bilgilerini ve profil fotoğrafını güncelleme
 - Mevcut şifreyi doğrulayarak şifre değiştirme
-- Kullanıcıların şikâyet/geri bildirim göndermesi
+- Kullanıcıların şikâyet ve geri bildirim göndermesi
 - Yönetici girişi ve yönetim panelinden kullanıcıları, alışkanlıkları ve şikâyetleri yönetme
 
 ## Kullanılan Teknolojiler
@@ -27,38 +26,37 @@ RUTINO, kullanıcıların günlük alışkanlıklarını planlamasına, tamamlad
 | Sunucu tarafı | Python, Flask |
 | Veritabanı işlemleri | Flask-SQLAlchemy, SQLAlchemy |
 | Veritabanı | SQLite |
-| Oturum ve güvenlik yapılandırması | Flask session, python-dotenv, Werkzeug parola hashleme |
+| Oturum ve güvenlik yapılandırması | Flask Session, python-dotenv, Werkzeug parola hashleme |
 
 ## Kurulum ve Çalıştırma
 
-Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları uygulayın. Komutları proje ana klasöründe çalıştırın.
+Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları uygulayın.
 
 ### Gereksinimler
 
 - Python 3
 - Node.js ve npm
+- Git
 
 ### 1. Projeyi indirme
 
-GitHub deposunu klonladıktan sonra proje klasörüne girin:
+Terminal veya komut satırında aşağıdaki komutları çalıştırın:
 
 ```bash
-git clone GITHUB_DEPO_LINKI
+git clone https://github.com/Yunusdolan/RUTINO.git
 cd RUTINO
 ```
 
-GitHub deposu henüz oluşturulmadıysa, indirdiğiniz proje klasörünü açarak sonraki adımlara geçebilirsiniz.
-
 ### 2. Python sanal ortamını oluşturma
 
-macOS / Linux:
+**macOS / Linux:**
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Windows:
+**Windows:**
 
 ```powershell
 py -m venv .venv
@@ -66,6 +64,8 @@ py -m venv .venv
 ```
 
 ### 3. Python paketlerini yükleme
+
+Proje ana klasöründe aşağıdaki komutu çalıştırın:
 
 ```bash
 pip install -r requirements.txt
@@ -83,11 +83,13 @@ FLASK_DEBUG=true
 SESSION_COOKIE_SECURE=false
 ```
 
-`FLASK_SECRET_KEY` en az 32 karakter olmalıdır. Yönetici e-posta adresi ve şifresi de tanımlanmalıdır. Gerçek gizli anahtarları ve şifreleri GitHub'a yüklemeyin.
+`FLASK_SECRET_KEY` en az 32 karakter olmalıdır. Yönetici e-posta adresi ve şifresi de tanımlanmalıdır.
+
+**Önemli:** Gerçek gizli anahtarları, yönetici şifresini veya diğer hassas bilgileri GitHub'a yüklemeyin.
 
 ### 5. Flask sunucusunu başlatma
 
-Proje ana klasöründe:
+Proje ana klasöründe aşağıdaki komutu çalıştırın:
 
 ```bash
 python main.py
@@ -105,7 +107,19 @@ npm install
 npm run dev
 ```
 
-Vite geliştirme sunucusu `http://127.0.0.1:5173` adresinde açılır. Uygulamayı tarayıcıda bu adres üzerinden görüntüleyebilirsiniz. Geliştirme ortamında Vite, `/api` isteklerini Flask sunucusuna yönlendirir.
+Vite geliştirme sunucusu `http://127.0.0.1:5173` adresinde açılır. Uygulamayı tarayıcıda bu adres üzerinden görüntüleyebilirsiniz.
+
+Geliştirme ortamında Vite, `/api` isteklerini Flask sunucusuna yönlendirir. Bu nedenle Flask ve Vite sunucularının aynı anda çalışması gerekir.
+
+### 7. Üretim derlemesi
+
+React uygulamasının üretim sürümünü oluşturmak için `frontend` klasöründe aşağıdaki komutu çalıştırın:
+
+```bash
+npm run build
+```
+
+Derleme sonucunda oluşturulan dosyalar, Vite yapılandırmasına göre Flask tarafından sunulan `static/react` klasörüne aktarılır.
 
 ## Yapay Zekânın Kullanıldığı Aşamalar
 
@@ -120,5 +134,5 @@ Yapay zekâ tarafından sunulan öneriler doğrudan kabul edilmek yerine proje k
 
 ## Proje Bağlantıları
 
-- **GitHub deposu:** GitHub deposu oluşturulduktan sonra bağlantı eklenecektir.
-- **Canlı uygulama:** Uygulama Netlify, Vercel veya uygun bir sunucu/platform üzerinde yayınlandıktan sonra bağlantı eklenecektir.
+- **GitHub Deposu:** https://github.com/Yunusdolan/RUTINO
+- **Canlı Uygulama:** https://rutino.onrender.com
