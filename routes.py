@@ -1,5 +1,5 @@
 # routes.py
-from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify, current_app, send_from_directory
 import hmac
 from datetime import datetime,timedelta,time
 from database import db
@@ -48,30 +48,29 @@ def seviye_hesapla(puan):
     else:
         return "Efsane Seviye "
 
-
 # LOGIN
 @routes.route('/', methods=['GET', 'POST'])
 @routes.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+    if request.method == 'GET':
+        return send_from_directory(
+            os.path.join(current_app.root_path, 'static', 'react'),
+            'index.html'
+        )
 
-        kullanici = Kullanici.query.filter_by(email=email).first()
+    email = request.form.get('email')
+    password = request.form.get('password')
 
-        if kullanici and check_password_hash(kullanici.sifre, password):
-            session['logged_in'] = True
-            session['email'] = kullanici.email
-            session['kullanici_id'] = kullanici.id
-            return redirect(url_for('routes.dashboard'))
+    kullanici = Kullanici.query.filter_by(email=email).first()
 
-        #  SADECE POST'ta flash
-        flash("Hatalı e-posta veya şifre.", "danger")
-        return render_template('login.html')
+    if kullanici and check_password_hash(kullanici.sifre, password):
+        session['logged_in'] = True
+        session['email'] = kullanici.email
+        session['kullanici_id'] = kullanici.id
+        return redirect(url_for('routes.dashboard'))
 
-    #  GET'te flash yok
-    return render_template('login.html')
-
+    flash("Hatalı e-posta veya şifre.", "danger")
+    return redirect(url_for('routes.login'))
 
 
 # REGISTER
