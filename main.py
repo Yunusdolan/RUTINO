@@ -1,4 +1,5 @@
 
+import os
 from flask import Flask
 from database import db
 from configure_security import configure_security
@@ -25,6 +26,12 @@ def create_app():
     return app
 
 
+app = create_app()
+
+
 if __name__ == "__main__":
-    app = create_app()
-    app.run(debug=app.config["DEBUG"])
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=app.config["DEBUG"]
+    )
