@@ -439,38 +439,42 @@ def get_user_badges(user_id):
     return result
 
 
-# ADMIN LOGIN
 
+# ADMIN LOGIN
 @routes.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
-    if request.method == 'POST':
-        email = (request.form.get('email') or '').strip()
-        password = request.form.get('password') or ''
-
-        admin_email = current_app.config['ADMIN_EMAIL']
-        admin_password = current_app.config['ADMIN_PASSWORD']
-
-        email_valid = hmac.compare_digest(
-            email.lower(),
-            admin_email.lower()
+    if request.method == 'GET':
+        return send_from_directory(
+            os.path.join(current_app.root_path, 'static', 'react'),
+            'index.html'
         )
 
-        password_valid = hmac.compare_digest(
-            password,
-            admin_password
-        )
+    email = (request.form.get('email') or '').strip()
+    password = request.form.get('password') or ''
 
-        if email_valid and password_valid:
-            session.clear()
-            session['admin_logged_in'] = True
-            session.permanent = True
+    admin_email = current_app.config['ADMIN_EMAIL']
+    admin_password = current_app.config['ADMIN_PASSWORD']
 
-            return redirect(url_for('routes.admin_dashboard'))
+    email_valid = hmac.compare_digest(
+        email.lower(),
+        admin_email.lower()
+    )
 
-        flash("Hatalı admin e-posta veya şifre", "danger")
-        return redirect(url_for('routes.admin_login'))
+    password_valid = hmac.compare_digest(
+        password,
+        admin_password
+    )
 
-    return render_template("adminlogin.html")
+    if email_valid and password_valid:
+        session.clear()
+        session['admin_logged_in'] = True
+        session.permanent = True
+
+        return redirect(url_for('routes.admin_dashboard'))
+
+    flash("Hatalı admin e-posta veya şifre", "danger")
+    return redirect(url_for('routes.admin_login'))
+
 
 
 # ADMIN DASHBOARD
